@@ -1,8 +1,11 @@
+// imports
 import { useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const WorkoutForm = () => {
     const { dispatch } = useWorkoutsContext()
+    const { user } = useAuthContext()
 
     // create state for each property of new workout
     const [title, setTitle] = useState('') // initial value is an empty string
@@ -15,6 +18,12 @@ const WorkoutForm = () => {
         // prevent refresh when clicked
         e.preventDefault()
 
+
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
         // dummy workout object to be sent as the body of the request
         const workout = {title, load, reps}
 
@@ -23,7 +32,8 @@ const WorkoutForm = () => {
             method: 'POST',
             body: JSON.stringify(workout), // convert workout to a JSON string
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}` // note the back ticks ``
             }
         })
         const json = await response.json() // from workoutController - createWorkout()
