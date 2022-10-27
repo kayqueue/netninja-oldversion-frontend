@@ -29,7 +29,7 @@ const Signup = () => {
                 value={password} // reflect change in email state
             />
 
-            <button disabled={ isLoading }>Sign up</button>
+            <button disabled={ isLoading }>Sign up</button> {/*prevent button from being clicked while page is loading*/}
             {error && <div className="error">{ error }</div>}
         </form>
     )

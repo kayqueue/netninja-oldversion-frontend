@@ -1,14 +1,16 @@
 import { useState } from 'react'
+import { useLogin } from '../hooks/useLogin'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { login, error, isLoading } = useLogin()
 
     const handleSubmit = async (e) => {
         // prevent refresh upon submit
         e.preventDefault()
 
-        console.log(email, password)
+        await login(email, password)
     }
 
     return (
@@ -27,7 +29,8 @@ const Login = () => {
                 value={password} // reflect change in email state
             />
 
-            <button>Login</button>
+            <button disabled={ isLoading }>Login</button> {/*prevent button from being clicked while page is loading*/}
+            {error && <div className="error">{ error }</div>}
         </form>
     )
 }
