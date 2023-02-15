@@ -28,7 +28,7 @@ const WorkoutForm = () => {
         const workout = {title, load, reps}
 
         // use fetch api to send a post request
-        const response = await fetch('/api/workouts', {
+        const response = await fetch('https://netninja-oldversion.herokuapp.com/api/workouts', {
             method: 'POST',
             body: JSON.stringify(workout), // convert workout to a JSON string
             headers: {

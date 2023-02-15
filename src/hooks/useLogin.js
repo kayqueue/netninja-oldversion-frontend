@@ -10,7 +10,7 @@ export const useLogin = () => {
         setIsLoading(true)
         setError(null) // reset error to null in case there was one previously
 
-        const response = await fetch('/api/user/login', {
+        const response = await fetch('https://netninja-oldversion.herokuapp.com/api/user/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
